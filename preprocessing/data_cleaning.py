@@ -15,7 +15,7 @@ class MissingValueImputer(BaseEstimator, TransformerMixin):
         self.categorical_impute_values = {}
 
     def fit(self, X, y=None):
-        # Only fit on columns that exist in X
+        # NB: Only fit on columns that exist in X! Otherwise throws error
         numeric_columns = X.select_dtypes(include=[np.number]).columns
         categorical_columns = X.select_dtypes(include=["object", "category"]).columns
 
@@ -27,7 +27,7 @@ class MissingValueImputer(BaseEstimator, TransformerMixin):
 
     def transform(self, X, y=None):
         X = X.copy()
-        # Only transform columns that exist in both the fitted data and X
+        # NB: Only transform columns that exist in both the fitted data and X!
         for col, impute_value in self.numeric_impute_values.items():
             if col in X.columns:  # Only impute if column exists
                 X[col] = X[col].fillna(impute_value)
