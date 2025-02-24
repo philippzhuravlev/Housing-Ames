@@ -2,7 +2,7 @@
 
 from pydantic import BaseModel, Field
 from typing import Annotated, Optional
-from enums import Neighborhood
+from utils.enums import Neighborhood
 
 class SalePriceRequest(BaseModel):
     # Required params
